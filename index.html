@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>Numerical Global Optimization Competition on GNBG–III Property Aware Test Suite | GECCO 2026 &amp; WCCI 2026</title>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect"/>
+  <link crossorigin href="https://fonts.gstatic.com" rel="preconnect"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet"/>
+
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <!-- Your main CSS -->
+  <link href="style.css" rel="stylesheet"/>
+
+  <!-- Search-mode + filter-mode visibility (kept here so you don't have to touch style.css) -->
+  <style>
+    /* Search results container is hidden unless searching */
+    #search-results-section{ display:none; }
+
+    /* SEARCH MODE: show only topbar + controls + results */
+    body.is-searching .hero,
+    body.is-searching #feed,
+    body.is-searching .bottom-sections,
+    body.is-searching footer.footer{
+      display:none !important;
+    }
+    body.is-searching #search-results-section{
+      display:block !important;
+    }
+    body.is-searching #search-results-section.section-wrapper{
+      padding-top: 14px !important;
+      padding-bottom: 34px !important;
+    }
+
+    /* FILTER MODE: when clicking chips (and search is empty), we hide everything except the chosen section.
+       We do it in JS by toggling display, so no extra CSS needed here. */
+  </style>
+</head>
+
+<body>
+  <!-- Top Bar -->
+  <header class="topbar" id="top">
+    <div class="wrap topbar-inner">
+      <a aria-label="GNBG-III Home" class="brand" href="#top">
+        <span aria-hidden="true" class="brand-logos">
+          <img alt="" src="assets/logo.png"/>
+          <img alt="" src="assets/logo2.png"/>
+        </span>
+        <span class="brand-text">
+          <span class="brand-title">GNBG-III Competition</span>
+          <span class="brand-sub">GECCO 2026 &amp; WCCI 2026</span>
+        </span>
+      </a>
+
+      <nav class="nav">
+        <a href="#feed">Feed</a>
+        <a href="#news">News</a>
+        <a href="#overview">Overview</a>
+        <a href="#submission">Submission</a>
+        <a href="#results">Results</a>
+        <a href="#contact">Contact</a>
+      </nav>
+
+      <button aria-expanded="false" aria-label="Open menu" class="nav-toggle">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="wrap hero-inner">
+
+    <!-- Row 1 (left): badge + title -->
+    <div class="hero-head">
+      <div class="badge">🏆 Competition • 24 GNBG-III instances • 30 runs each • Black-box</div>
+      <h1 class="hero-title">Numerical Global Optimization Competition on GNBG–III Property Aware Test Suite</h1>
+    </div>
+
+    <!-- Row 2 (left): lead + buttons + meta -->
+    <div class="hero-body">
+      <p class="lead">
+        A property-controlled test suite spanning unimodal to multi-component multimodal landscapes
+        (conditioning, asymmetry, interactions, basin response, deceptiveness).
+      </p>
+
+      <div class="hero-actions">
+        <a class="btn primary" href="#feed">Explore feed</a>
+        <a class="btn ghost" href="#submission">How to submit</a>
+      </div>
+
+      <div class="meta">
+        <span>Stop criteria: f1–f24: 500k FEs </span>
+        <span>Code: MATLAB / Python / C++</span>
+      </div>
+    </div>
+
+    <!-- Row 2 (right): figures (aligned with lead text) -->
+    <div aria-label="Example GNBG-III landscapes" class="hero-card" role="img">
+      <div class="hero-grid">
+        <figure class="shot">
+          <img alt="Example I" loading="lazy" src="assets/fig1.jpg"/>
+          <figcaption>Example 2D landscape</figcaption>
+        </figure>
+        <figure class="shot">
+          <img alt="Example II" loading="lazy" src="assets/fig2.jpg"/>
+          <figcaption>Example 2D landscape</figcaption>
+        </figure>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+  <!-- Controls -->
+  <section class="controls" id="controls">
+    <div class="wrap controls-inner">
+      <div class="search">
+        <span aria-hidden="true" class="search-ico">⌕</span>
+        <input autocomplete="off" id="search" placeholder="Search cards (rules, evaluation, deadline, code…)" type="search"/>
+      </div>
+
+      <div aria-label="Filters" class="chips" role="tablist">
+        <button aria-selected="true" class="chip is-active" data-filter="all" role="tab">All</button>
+        <button class="chip" data-filter="news" role="tab">News</button>
+        <button class="chip" data-filter="overview" role="tab">Overview</button>
+        <button class="chip" data-filter="rules" role="tab">Rules</button>
+        <button class="chip" data-filter="evaluation" role="tab">Evaluation</button>
+        <button class="chip" data-filter="submission" role="tab">Submission</button>
+        <button class="chip" data-filter="results" role="tab">Results</button>
+        <button class="chip" data-filter="contact" role="tab">Contact</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- SEARCH RESULTS (only shown when typing in search box) -->
+  <section class="section-wrapper" id="search-results-section">
+    <div class="container">
+      <div class="updates-row" id="search-results"></div>
+    </div>
+  </section>
+
+  <!-- Feed layout -->
+  <main class="wrap layout layout--single" id="feed">
+    <section aria-label="Competition feed" class="masonry" id="masonry">
+      <!-- (optional pins here) -->
+    </section>
+  </main>
+
+  <!-- Bottom sections -->
+  <div class="bottom-sections">
+
+    <!-- News -->
+    <section class="section-wrapper" id="news">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="section-title"><h1>News</h1></div>
+            <p class="section-sub">Calls, deadlines, and quick links.</p>
+          </div>
+        </div>
+
+        <div class="updates-row">
+          <article class="pin" data-tags="news code github benchmark matlab python cpp">
+            <header class="pin-head">
+              <span class="tag">News</span>
+              <h3>Benchmark code (MATLAB / Python / C++)</h3>
+              <p>GNBG-III instances + wrappers. Treat instances as black-box.</p>
+            </header>
+            <div class="pin-actions">
+              <a class="btn small" href="https://github.com/rohitsalgotra/GNBG-III" rel="noreferrer" target="_blank">Open GitHub</a>
+              <a class="btn small ghost" href="#overview">What’s inside?</a>
+            </div>
+	                <div class="callout">
+              <div><b>Note:</b> keep parameters unchanged across all GNBG-III instances.</div>
+            </div>
+          </article>
+
+          <article class="pin" data-tags="news call for abstracts cfp submission">
+            <header class="pin-head">
+              <span class="tag violet">Call</span>
+              <h3>Call for abstracts</h3>
+              <p>Submit your algorithm entry and short abstract describing the method, settings, and reproducibility details.</p>
+            </header>
+            <ul class="bullets">
+              <li>Include algorithm name + short description.</li>
+              <li>Provide parameter settings (fixed across all instances).</li>
+              <li>Attach result files + runnable code package for verification.</li>
+            </ul>
+            <div class="pin-actions">
+              <a class="btn small" href="#submission">Submission details</a>
+              <a class="btn small ghost" href="#contact">Contact organizers</a>
+            </div>
+          </article>
+
+          <article class="pin" data-tags="news important dates deadline timeline">
+            <header class="pin-head">
+              <span class="tag">Dates</span>
+              <h3>Important dates</h3>
+            </header>
+            <ul class="bullets">
+              <li><b>Submission deadline:</b> 31 March 2026</li>
+              <li><b>Verification period:</b> late April 2026</li>
+              <li><b>Results:</b> June-July 2026</li>
+            </ul>
+  	    <div class="highlight-line" role="note" aria-live="polite">
+ <!-- <span class="dot" aria-hidden="true"></span>-->
+  <span class="highlight-text">
+    Separate submissions are required for the WCCI and GECCO. All abstracts must be submitted no later than <b>31 March 2026</b>, and full papers must be submitted by the conference proceedings deadline.
+  </span>
+</div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Overview -->
+    <section class="section-wrapper" id="overview">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="section-title"><h1>Overview</h1></div>
+          </div>
+        </div>
+
+        <div class="row pins-row">
+          <article class="pin span-2" data-tags="overview description suite gn bg properties" id="overview-card">
+            <header class="pin-head">
+              <span class="tag violet">Overview</span>
+              <h3>Competition overview</h3>
+				<p style="text-align: justify;">This competition invites researchers to test their global optimization algorithms against a meticulously curated set of 24 problem instances from the Generalized Numerical Benchmark Generator (GNBG). The GNBG-III competition introduces the next generation of property-aware and computationally hard numerical benchmarks, designed to expose the behavior of global optimization algorithms under controlled structural conditions. The
+suite encompasses:</p>
+		<div class="highlight-line" role="note" aria-live="polite">
+  				<!--<span class="dot" aria-hidden="true"></span>-->
+ 				 <span class="highlight-text">
+  				 24 GNBG-III generated instances: unimodal → single-component multimodal → multi-component multimodal.
+  				</span>
+			</div>
+            
+<p style="text-align: justify;"> This competition presents problems with diverse characteristics such as modality, ruggedness, asymmetry, conditioning, and deceptiveness, providing a thorough test of algorithmic performance. Beyond solution quality, the emphasis is on understanding how algorithms reach solutions. Participants will explore how algorithms handle deceptive landscapes, traverse valleys, and adapt to varying problem difficulties, offering deeper insight into optimization in complex numerical environments.<p>
+            <div class="callout">
+              <div><b>Reference:</b> Rohit Salgotra, Kalyanmoy Deb, Amir H. Gandomi (2026). <i>Numerical Global Optimization Competition on GNBG–III Property Aware Test Suite.</i> Submitted In Proceedings of the Genetic and Evolutionary Computation Conference Companion.</div>
+              <!--<div><b>DOI:</b> <a href="https://doi.org/10.1145/3712255.3734271" rel="noreferrer" target="_blank"><b>10.1145/3712255.3734271</b></a></div> -->
+            </div>
+          </article>
+
+          <article class="pin" data-tags="overview quick links github submission">
+            <header class="pin-head">
+              <span class="tag violet">Overview</span>
+              <h3>Quick links</h3>
+            </header>
+
+          <div class="highlight-line" role="note" aria-live="polite">
+ <!-- <span class="dot" aria-hidden="true"></span>-->
+
+  <ul class="highlight-links">
+    <li><a href="https://github.com/rohitsalgotra/GNBG-III" rel="noreferrer" target="_blank"><b>GNBG-III Source Codes</b></a></li>
+    <li><a href="#submission"><b>Submission instructions</b></a></li>
+    <!--<li><a href="#results"><b>Competition results</b></a></li>-->
+  </ul>
+</div>
+            <h4 class="mini" style="margin-top:14px;">Controlled properties</h4>
+            <div class="pillbox flow">
+              <span class="pill">conditioning</span>
+              <span class="pill">asymmetry</span>
+              <span class="pill">basin linearity</span>
+              <span class="pill">variable interactions</span>
+              <span class="pill">deceptiveness</span>
+            </div>
+			
+            <!--<div class="grid-2">
+              <div> -->
+		</header>
+	    <h4 class="mini">The suite composition</h4>
+<div class="pillbox stack">
+  <span class="pill">Foundational Tests: <span class="range">f1–f6</span> </span>
+  <span class="pill">Coupled Interactions Evaluation: <span class="range">f7–f10</span> </span>
+  <span class="pill">Multimodality and Asymmetry: <span class="range">f11–f16</span></span>
+  <span class="pill">Hard Static Hybrids: <span class="range">f17–f22</span> </span>
+  <span class="pill">Robustness and Dynamic Adaptations: <span class="range">f23–f24</span></span>
+</div>
+  <!--<div class="pin-actions">
+              <a class="btn small" href="https://doi.org/10.1145/3712255.3734271" rel="noreferrer" target="_blank">Reference DOI</a>
+              <a class="btn small ghost" href="#section-organizingcommittee">Organizers</a>
+            </div> -->
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Submission -->
+    <section class="section-wrapper" id="submission">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="section-title"><h1>Submission Details</h1></div>
+            <!--<p class="section-sub">How to package and submit your entry.</p>-->
+          </div>
+        </div>
+
+        <div class="row pins-row">
+          <!-- ✅ ID added so chips can scroll here -->
+          <article class="pin span-2" id="rules-card" data-tags="rules compliance black box forbidden tuning">
+            <header class="pin-head">
+              <span class="tag">Rules</span>
+              <h3>Rules &amp; compliance</h3>
+              <!--<p>Keep it fair: same parameters across instances, black-box evaluations.</p>-->
+            </header>
+            <ul class="bullets">
+              <li>Open to all researchers in continuous numerical optimization.</li>
+              <li>Unpublished or previously published algorithms are allowed for participation.</li>
+              <li><b>No per-instance tuning</b>; parameters must remain consistent across all instances.</li>
+              <li><b>Direct use</b> of GNBG internal parameters (instances must be treated as black-box) is forbidden.</li>
+              <li>No modifications are permitted to parameter settings of the instances in the <code>.mat</code> files.</li>
+              <li>Winners must share source code for verification (kept confidential).</li>
+            </ul>
+          </article>
+
+          <!-- ✅ ID added so chips can scroll here -->
+          <article class="pin" id="evaluation-card" data-tags="evaluation metrics error threshold fe success">
+            <header class="pin-head">
+              <span class="tag">Evaluation</span>
+              <h3>Evaluation metrics</h3>
+
+              <p><b>Average absolute error:</b><br>
+                Mean error of best solutions across 30 runs.
+              </p>
+
+              <p><b>Average FEs to threshold:</b><br>
+                Mean FEs to reach absolute error &lt; 1e-8.
+              </p>
+
+              <p><b>Success rate:</b><br>
+                Percentage of runs reaching absolute error &lt; 1e-8.
+              </p>
+            </header>
+          </article>
+
+          <article class="pin span-2" id="submission-card" data-tags="submission deadline email files format">
+            <header class="pin-head">
+              <span class="tag">Submission</span>
+              <h3>Submission package</h3>
+              <p>One zipped folder named with your algorithm.</p>
+            </header>
+
+            <div class="grid-2">
+              <div>
+                <h4 class="mini">Include</h4>
+                <ul class="bullets">
+                  <li>Documentation: title, authors, affiliations, emails, summary + mean±std tables.</li>
+                  <li>24 result files: <code>f10.dat</code> etc.</li>
+                  <li>Each file contains 30 runs with 2 columns: absolute error and FEs-to-threshold.</li>
+                </ul>
+              </div>
+
+              <div>
+                <h4 class="mini">Submit to</h4>
+                <div class="callout">
+                  <!--<div><a class="contact-email-link" href="mailto:r.03dec@gmail.com"><b>r.03dec@gmail.com</b></a></div>
+            	  </div><a class="contact-email-link" href="mailto:dsmlossf@gmail.com">dsmlossf@gmail.com</b></a></div>-->
+                  <div><a class="contact-email-link" href="mailto:dsmlossf@gmail.com"><b>dsmlossf@gmail.com</b></a></div>
+                  <div class="muted" style="margin-top:10px;"><b>Deadline:</b> <b>31 March 2026</b> <br>(CEC/GECCO Conference deadlines for paper submission)</div>
+                </div>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Results -->
+    <section class="section-wrapper" id="results">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="section-title"><h1>Results</h1></div>
+            <!--<p class="section-sub">Latest rankings, downloads, and announcements.</p>-->
+          </div>
+        </div>
+
+        <div class="row results-news-row">
+          <div class="col-md-12">
+            <article class="pin update update--primary" data-tags="results ranking winners score download">
+              <header class="pin-head">
+                <span class="tag violet">Results</span>
+                <h3>Competition results (WCCI 2026)</h3>
+		<p> To be announced in June-July 2026 at the WCCI/GECCO Conference Venues <p>
+                <!--<p>Final ranking based on total weighted rank across all test cases.</p>
+              </header>
+
+              <div class="table">
+                <div class="trow thead">
+                  <div>Rank</div><div>Algorithm</div><div>Score</div>
+                </div>
+                <div class="trow win">
+                  <div><b>1</b></div><div><b>AG-GEAs</b></div><div><b>48.12</b></div>
+                </div>
+                <div class="trow">
+                  <div><b>2</b></div><div><b>Modular CMAES</b></div><div><b>41.62</b></div>
+                </div>
+                <div class="trow">
+                  <div><b>3</b></div><div><b>E-SHADE</b></div><div><b>30.14</b></div>
+                </div>
+              </div>
+
+              <div class="pin-actions">
+                <a class="btn small" href="https://drive.google.com/drive/folders/1q2G14j-ObTg3ZNitsf9NkbiGbQvyrFB5?usp=sharing" rel="noreferrer" target="_blank">Download run data</a>
+                <a class="btn small ghost" href="https://github.com/rohitsalgotra/GNBG-III" rel="noreferrer" target="_blank">Winner code</a>
+              </div> -->
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Organizing Committee -->
+    <section class="section-wrapper" id="section-organizingcommittee">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="section-title center"><h1>Organizing Committee</h1></div>
+          </div>
+        </div>
+
+        <div class="committee-grid2">
+          <a class="committee-card2" href="https://rohitsalgotra.github.io/" target="_blank" rel="noreferrer noopener">
+            <div class="committee-photo">
+              <img src="assets/rohit.jpg" alt="Rohit Salgotra">
+            </div>
+            <div class="committee-text">
+              <div class="committee-name2">Rohit Salgotra</div>
+              <div class="committee-role2">Research Assitant Professor</div>
+              <div class="committee-aff2">AGH University of Krakow • Poland</div>
+            </div>
+          </a>
+
+          <a class="committee-card2" href="https://www.egr.msu.edu/~kdeb/" target="_blank" rel="noreferrer noopener">
+            <div class="committee-photo">
+              <img src="assets/deb.jpg" alt="Kalyanmoy Deb">
+            </div>
+            <div class="committee-text">
+              <div class="committee-name2">Kalyanmoy Deb</div>
+              <div class="committee-role2">Professor</div>
+              <div class="committee-aff2">Michigan State University • USA</div>
+            </div>
+          </a>
+
+          <a class="committee-card2" href="https://profiles.uts.edu.au/amirhossein.gandomi" target="_blank" rel="noreferrer noopener">
+            <div class="committee-photo">
+              <img src="assets/amir.jpg" alt="Amir H Gandomi">
+            </div>
+            <div class="committee-text">
+              <div class="committee-name2">Amir H Gandomi</div>
+              <div class="committee-role2">Professor</div>
+              <div class="committee-aff2">University of Technology Sydney • Australia</div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section class="section-wrapper" id="contact">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="section-title center"><h1>Contact</h1></div>
+          </div>
+        </div>
+
+        <div class="contact-grid2">
+          <div class="contact-card2 contact-email">
+            <div class="contact-head">
+              <i class="fa fa-envelope"></i>
+              <span>Email</span>
+            </div>
+            <a class="contact-email-link" href="mailto:rohits@agh.edu.pl">rohits@agh.edu.pl</a><br>
+	    <a class="contact-email-link" href="mailto:gandomi@uts.edu.au"><b>gandomi@uts.edu.au</b></a>
+          </div>
+		
+            	  <!--</div><a class="contact-email-link" href="mailto:dsmlossf@gmail.com">dsmlossf@gmail.com</b></a></div>
+                  <div><a class="contact-email-link" href="mailto:gandomi@uts.edu.au"><b>gandomi@uts.edu.au</b></a></div>-->
+
+          <div class="contact-card2 contact-follow">
+            <div class="contact-head">
+              <i class="fa fa-share-alt"></i>
+              <span>Follow Us</span>
+            </div>
+
+            <div class="contact-follow-row">
+              <a class="follow-icon" href="https://x.com/YOUR_HANDLE" target="_blank" rel="noreferrer noopener" aria-label="Twitter / X">
+                <i class="fa fa-twitter" aria-hidden="true"></i>
+              </a>
+
+              <a class="follow-icon" href="https://www.linkedin.com/in/YOUR_PROFILE/" target="_blank" rel="noreferrer noopener" aria-label="LinkedIn">
+                <i class="fa fa-linkedin" aria-hidden="true"></i>
+              </a>
+
+              <a class="follow-icon" href="https://github.com/YOUR_USER_OR_ORG" target="_blank" rel="noreferrer noopener" aria-label="GitHub">
+                <i class="fa fa-github" aria-hidden="true"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="wrap footer-inner">
+      <div>
+        <div class="footer-title">GNBG-III Property Aware Competition</div>
+        <div class="footer-sub">
+          <a href="https://YOUR-WEBSITE-HERE.com" target="_blank" rel="noreferrer noopener">
+            <img alt="ACE" src="assets/acelogo.png"/>
+          </a>
+          ACE - AI, Computation &amp; Evolution: To Support the Society of the Future • © 2026 • All Rights Reserved
+        </div>
+      </div>
+      <a class="to-top" href="#top">Back to top ↑</a>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile nav toggle
+    const toggle = document.querySelector('.nav-toggle');
+    const nav = document.querySelector('.nav');
+    toggle?.addEventListener('click', () => {
+      const open = nav.classList.toggle('is-open');
+      toggle.setAttribute('aria-expanded', String(open));
+    });
+
+    const chips = Array.from(document.querySelectorAll('.chip'));
+    const pins = Array.from(document.querySelectorAll('.pin'));
+    const search = document.getElementById('search');
+
+    const resultsSection = document.getElementById('search-results-section');
+    const resultsGrid = document.getElementById('search-results');
+
+    function stripIds(node){
+      if (!node || node.nodeType !== 1) return;
+      if (node.hasAttribute && node.hasAttribute('id')) node.removeAttribute('id');
+      Array.from(node.children || []).forEach(stripIds);
+    }
+
+    function renderSearchResults(visiblePins){
+      if (!resultsGrid) return;
+      resultsGrid.innerHTML = '';
+      visiblePins.forEach(pin => {
+        const clone = pin.cloneNode(true);
+        stripIds(clone);           // prevent duplicate IDs
+        clone.style.display = '';  // ensure visible
+        resultsGrid.appendChild(clone);
+      });
+    }
+
+    function showOnlySectionById(sectionId){
+      const allSections = Array.from(document.querySelectorAll('.section-wrapper'));
+      allSections.forEach(sec => sec.style.display = 'none');
+      const target = document.getElementById(sectionId);
+      if (target) target.style.display = '';
+    }
+
+    function scrollToTarget(active){
+      const map = {
+        all: 'top',
+        news: 'news',
+        overview: 'overview',
+        results: 'results',
+        contact: 'contact',
+        rules: 'rules-card',
+        evaluation: 'evaluation-card',
+        submission: 'submission-card'
+      };
+      const id = map[active] || map.all;
+      const el = document.getElementById(id);
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function applyFilters() {
+      const active = document.querySelector('.chip.is-active')?.dataset.filter || 'all';
+      const qRaw = (search?.value || '').trim();
+      const q = qRaw.toLowerCase();
+
+      const isSearching = !!qRaw;
+
+      // SEARCH MODE toggle
+      document.body.classList.toggle('is-searching', isSearching);
+
+      // Compute matching pins
+      pins.forEach(pin => {
+        const tags = (pin.dataset.tags || '').toLowerCase();
+        const text = pin.innerText.toLowerCase();
+
+        // Contact chip has no pins -> hide all pins (we show Contact section separately in filter mode)
+        if (!isSearching && active === 'contact') {
+          pin.style.display = 'none';
+          return;
+        }
+
+        const matchTag = (active === 'all') || tags.includes(active);
+        const matchQuery = (!q) || text.includes(q) || tags.includes(q);
+
+        pin.style.display = (matchTag && matchQuery) ? '' : 'none';
+      });
+
+      // If searching: show ONLY matching blocks (pins) in results section
+      if (isSearching) {
+        const visiblePins = pins.filter(p => p.style.display !== 'none');
+        if (resultsSection && resultsGrid) {
+          renderSearchResults(visiblePins);
+          resultsSection.style.display = visiblePins.length ? '' : 'none';
+        }
+        return;
+      }
+
+      // Not searching -> hide search results
+      if (resultsSection && resultsGrid) {
+        resultsSection.style.display = 'none';
+        resultsGrid.innerHTML = '';
+      }
+
+      // CHIP MODE: show only the requested section
+      if (active === 'all') {
+        document.querySelectorAll('.section-wrapper').forEach(sec => sec.style.display = '');
+        return;
+      }
+
+      if (active === 'news') showOnlySectionById('news');
+      else if (active === 'overview') showOnlySectionById('overview');
+      else if (active === 'results') showOnlySectionById('results');
+      else if (active === 'contact') showOnlySectionById('contact');
+      else if (active === 'rules' || active === 'evaluation' || active === 'submission') {
+        // These are cards inside submission section
+        showOnlySectionById('submission');
+      } else {
+        // Fallback: hide all sections
+        document.querySelectorAll('.section-wrapper').forEach(sec => sec.style.display = 'none');
+      }
+    }
+
+    // Chip click = navigate + show only that section
+    chips.forEach(chip => {
+      chip.addEventListener('click', () => {
+        chips.forEach(c => c.classList.remove('is-active'));
+        chip.classList.add('is-active');
+
+        // Clear search so chip navigation shows only target section (not search mode)
+        if (search) search.value = '';
+
+        applyFilters();
+        scrollToTarget(chip.dataset.filter);
+      });
+    });
+
+    // Search input = show only matching blocks
+    search?.addEventListener('input', applyFilters);
+
+    // First paint
+    applyFilters();
+  </script>
+</body>
+</html>
