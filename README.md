@@ -1,4 +1,4 @@
-# GNBG-II Competition on - GECCO 2025 & CEC 2025
+# GNBG-III Competition on Property Aware Test Suite- GECCO 2026 & CEC 2026
 CEC & GECCO 2026 Numerical Global Optimization Competition on GNBG-III Property Aware Test Suite
 Note: 
 The authors should submit separate entries for both CEC and GECCO Competition. 
