@@ -327,18 +327,26 @@ suite encompasses:</p>
             <header class="pin-head">
               <span class="tag">Evaluation</span>
               <h3>Evaluation metrics</h3>
+<p>
+  Algorithms are tested on <b>24 GNBG-III</b> benchmark problems with a budget of
+  <b>500,000 function evaluations (FEs)</b> per run (fixed seeds for reproducibility).
+  Performance is measured using best-so-far error:
+  <span style="white-space:nowrap;"><i>e(FE) = |f_best(FE) − f*</i>|</span>.
+</p>
 
-              <p><b>Average absolute error:</b><br>
-                Mean error of best solutions across 30 runs.
-              </p>
+<ul>
+  <li><b>Checkpoint error:</b> 10K, 50K, 100K, …, 500K FEs</li>
+  <li><b>FE-to-target & success rate:</b> 1e−1, 1e−3, 1e−5, 1e−8</li>
+  <li><b>ERT:</b> expected running time per target (failures count as full budget)</li>
+</ul>
 
-              <p><b>Average FEs to threshold:</b><br>
-                Mean FEs to reach absolute error &lt; 1e-8.
-              </p>
-
-              <p><b>Success rate:</b><br>
-                Percentage of runs reaching absolute error &lt; 1e-8.
-              </p>
+<a href="https://github.com/rohitsalgotra/GNBGIII/blob/main/GNBG_III_Competition_Protocols.pdf"
+   target="_blank" rel="noopener noreferrer"
+   style="display:inline-block;padding:8px 12px;border-radius:999px;
+          background:#f2f4f7;color:#111;text-decoration:none;
+          font-weight:600;font-size:0.95rem;border:1px solid #e4e7ec;">
+  Full harness (PDF)
+</a>
             </header>
           </article>
 
